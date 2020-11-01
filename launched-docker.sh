@@ -42,7 +42,7 @@ run_mysql() {
   MYSQL_ROOT_CREDENTIALS="root"
 
   echo -e "\n\e[1;32mID: \e[1;34m"
-  docker run -d --name \ 
+  docker run -d --name \
     ${CHANGED_NAME} -p ${CHANGED_PORT} \
     -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_CREDENTIALS} \
     -e MYSQL_USER=${MYSQL_ROOT_CREDENTIALS} ${CONFIG} \
