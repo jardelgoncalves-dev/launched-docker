@@ -18,7 +18,7 @@ Images
 
 declare ARRAY_IMAGES_ALLOWED
 
-ARRAY_IMAGES_ALLOWED=([1]="mongo" [2]="mysql")
+ARRAY_IMAGES_ALLOWED=([1]="mongo" [2]="mysql" [3]="dynamo")
 
 COMMAND=${0}
 PORT=
@@ -80,7 +80,27 @@ run_mongo() {
   echo -e "\e[1;34m${CHANGED_PORT} \e[0m\n"
 }
 
+run_dynamo() {
+  CHANGED_NAME="dynamodb"
+  CHANGED_PORT="8000:8000"
 
+  if [ ! -z "${NAME}" ]; then
+    CHANGED_NAME=${NAME}
+  fi
+
+  if [ ! -z "${PORT}" ]; then
+    CHANGED_PORT=${PORT}
+  fi
+
+  echo -e "\n\e[1;32mID: \e[1;34m"
+  docker run -d --name ${CHANGED_NAME} -p ${CHANGED_PORT} ${CONFIG} amazon/dynamodb-local
+
+  echo -e "\n\e[1;32mNAME CONTAINER \e[0m"
+  echo -e "\e[1;34m${CHANGED_NAME} \e[0m\n"
+
+  echo -e "\n\e[1;32mPORT \e[0m"
+  echo -e "\e[1;34m${CHANGED_PORT} \e[0m\n"
+}
 
 while getopts "i:n:p:c:h" opt
 do
@@ -117,6 +137,7 @@ run() {
   case "${IMAGE}" in
     mongo ) run_mongo        ;;
     mysql ) run_mysql        ;;
+    dynamo) run_dynamo       ;;
     ?     ) helpFunction     ;;
   esac
 }
