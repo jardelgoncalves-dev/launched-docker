@@ -34,6 +34,7 @@ To the run launched-docker:
 | mongo           | mongodb                | Initializes a mongo container |
 | mysql           | mysql_db               | Initializes a mysql:5.7 container |
 | dynamo          | dynamodb               | Initializes a amazon/dynamodb-local container |
+| postgres        | postgres_db            | Initializes a postgres:latest container |
 
 <br />
 <br />
