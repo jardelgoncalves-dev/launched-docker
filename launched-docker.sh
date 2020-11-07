@@ -116,9 +116,14 @@ run_postgres() {
     CHANGED_PORT=${PORT}
   fi
 
+  POSTGRES_CREDENTIALS=postgres
+
   echo -e "\n\e[1;32mID: \e[1;34m"
-  docker run -d --name \
-    ${CHANGED_NAME} -p ${CHANGED_PORT} ${CONFIG} \
+  docker run -d --name ${CHANGED_NAME} \
+    -p ${CHANGED_PORT} \
+    -e POSTGRES_PASSWORD=${POSTGRES_CREDENTIALS} \
+    -e POSTGRES_USER=${POSTGRES_CREDENTIALS} \
+    ${CONFIG} \
     postgres
 
   echo -e "\n\e[1;32mNAME CONTAINER \e[0m"
